@@ -5,9 +5,47 @@
   width: 70%;
 }
 
+#column {
+  float: left;
+  height: 400px;
+  width: 23.33%;
+  padding: 8px;
+}
+
+#row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#lavendar-background {
+  background-color: lavender;
+}
+
+#blue-background {
+  background-color: lightblue;
+}
+
+#pink-background {
+  background-color: lightpink;
+}
+
 h1,
 h2 {
   background-color:Violet;
+}
+
+h3,
+h4,
+h5 {
+  font-size: x-large;
+  text-align: center;
+}
+
+#gallery {
+  float: unset;
+  padding: 8px;
+  width: 200px;
 }
 
 #float-left {
