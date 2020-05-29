@@ -1,21 +1,22 @@
 #content {
-  font-size: 150%;
+  font-size: 175%;
   margin-left: auto;
   margin-right: auto;
   width: 70%;
 }
 
 #column {
-  float: left;
-  height: 400px;
-  width: 23.33%;
-  padding: 8px;
+  display: table-cell;
+  width: 23.3%;
 }
 
-#row:after {
-  content: "";
+#row {
   display: table;
-  clear: both;
+  width: 100%;
+}
+
+#secret {
+  color: white;
 }
 
 #lavendar-background {
@@ -42,8 +43,17 @@ h5 {
   text-align: center;
 }
 
-#gallery {
+#gallery2 {
   float: unset;
+  padding: 8px;
+  width: 200px;
+}
+
+#gallery {
+  display: block;
+  float: unset;
+  margin-left: auto;
+  margin-right: auto;
   padding: 8px;
   width: 200px;
 }
@@ -61,4 +71,19 @@ h5 {
 
 #greeting-container {
   margin-top: 20px;
+}
+
+#bubble-container{
+  width: 100%;
+  height: 100%;
+  background-color: blue;
+  position: relative;
+}
+
+#bubble {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  background-image: linear-gradient(to bottom right, lightskyblue, rgb(207, 227, 240))
 }
