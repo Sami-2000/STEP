@@ -27,15 +27,15 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-//Causes the bubble to slide down the page.
+// Causes the bubble to slide down the page.
 function bubbleFall() {
-    //Find the bubble.
-    var elem = document.getElementById('bubble');
-    var pos = 0;
-    //Make the mobement visible and fluid by moving every 10 milliseconds;
-    var id = setInterval(frame, 10)
-    //For each movement, move the element one pixel down. At the bottom, stop moving.
-    function frame(){
+    // Find the bubble.
+    const elem = document.getElementById('bubble');
+    let pos = 0;
+    // Make the movement visible and fluid by moving every 10 milliseconds;
+    const id = setInterval(frame, 10);
+    // For each movement, move the element one pixel down. At the bottom, stop moving.
+    function frame() {
         if (pos == 1000){
             clearInterval(id);
         }
