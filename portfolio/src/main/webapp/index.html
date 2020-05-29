@@ -2,17 +2,38 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <img src="/Images/Name.png" alt="Sami Alves">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
   <body>
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
+      <h1>
+        About Me: 
+        <a href="https://www.github.com/Sami-2000">Github</a>
+        <a href="https://www.linkedin.com/in/samantha-alves-865093195/">LinkedIn</a>
+      </h1>
+      <img src="/Images/Trapeze.jpg" alt="Me doing trapeze.">
+      <p>Hi all! My name is Sami and I am a Junior at Yale University studying Physics and Computer Science. I love both exploring and codifying the patterns that govern our world.</p>
+      <p>When I am not studying, I work in an interdisciplinary Neuroscience lab studying fly behavior, give tours to perspective students, and tutor students in an introductory Physics class.</p>
+      <p>I also love practicing on the Club Gymnastics team, planning events for the Women in Physics group, volunteering in local elementary schools, and debating in the Yale Political Union. </p>
+      <p>Click here to get a fun fact about me:</p>
+      <button onclick="addRandomGreeting()">Fun Fact!</button>
       <div id="greeting-container"></div>
+      <h2>My Projects: </h2>
+      <div id="rectangle">
+        <img id="float-left" src="/Images/Bwsi.png" alt="BWSI">
+        <p>Programmed autonomous drones at MIT's Beaverworks Summer Institute.</p>
+      </div>
+      <div id="rectangle">
+        <img id="float-left" src="/Images/Fly.png" alt="Clark Lab">
+        <p>Used machine learning to analyze fly image data at the Clark Lab of Yale.</p>
+      </div>
+      <div id="rectangle">
+        <img id="float-left" src="/Images/Bec.png" alt="BEC">
+        <p>Updated the control software for atomic physics experiments and wrote molecular dynamics simulations at Yale's UltraCold Quantum Matter Lab.</p>
+      </div>
     </div>
   </body>
 </html>
