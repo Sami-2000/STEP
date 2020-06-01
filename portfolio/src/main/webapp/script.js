@@ -42,7 +42,7 @@ function bubbleFall() {
             clearInterval(id);
         }
         else{
-            pos++;
+            height++;
             bubbleElem.style.top = height + 'px';
         }
     }
