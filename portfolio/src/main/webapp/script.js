@@ -41,7 +41,7 @@ function bubbleFall() {
         if (height == 1000) {
             clearInterval(id);
         }
-        else{
+        else {
             height++;
             bubbleElem.style.top = height + 'px';
         }
