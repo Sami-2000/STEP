@@ -38,7 +38,7 @@ function bubbleFall() {
     const id = setInterval(lowerBubbleOnePixel, 10);
     // For each movement, move the element one pixel down. At the bottom, stop moving.
     function lowerBubbleOnePixel() {
-        if (height == 1000){
+        if (height == 1000) {
             clearInterval(id);
         }
         else{
