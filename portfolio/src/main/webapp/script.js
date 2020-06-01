@@ -17,7 +17,9 @@
  */
 function addRandomGreeting() {
   const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+      ['I have lived in the same house for my entire life!', 
+      'I cage-dived with great white sharks.', 'Hablo español.', 
+      'I used to perform on the flying trapeze.'];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
@@ -25,4 +27,23 @@ function addRandomGreeting() {
   // Add it to the page.
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
+}
+
+// Causes the bubble to slide down the page.
+function bubbleFall() {
+    // Find the bubble.
+    const bubbleElem = document.getElementById('bubble');
+    let height = 0;
+    // Make the movement visible and fluid by moving every 10 milliseconds;
+    const id = setInterval(lowerBubbleOnePixel, 10);
+    // For each movement, move the element one pixel down. At the bottom, stop moving.
+    function lowerBubbleOnePixel() {
+        if (height == 1000){
+            clearInterval(id);
+        }
+        else{
+            height++;
+            bubbleElem.style.top = height + 'px';
+        }
+    }
 }
