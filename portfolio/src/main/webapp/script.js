@@ -67,7 +67,7 @@ function getMessages() {
 }
 
 // Creates an <li> element containing text.
-// COPIED FROM SERVER-STATS EXAMPLE
+// COPIED FROM SERVER-STATS EXAMPLE.
 function createListElement(text) {
   const liElement = document.createElement('li');
   liElement.innerText = text;
