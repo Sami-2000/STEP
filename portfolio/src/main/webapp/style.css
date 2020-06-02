@@ -86,3 +86,7 @@ h5 {
   position: absolute;
   width: 200px;
 }
+
+#message-container{
+    margin-top: 8px;
+}
