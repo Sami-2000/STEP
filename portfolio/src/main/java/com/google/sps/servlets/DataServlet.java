@@ -42,7 +42,8 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(jsonMessages);
   }
 
-   private String convertToJsonUsingGson(ArrayList<String> messages) {
+  // Use GSON to convert an ArrayList to a JSON String.
+  private String convertToJsonUsingGson(ArrayList<String> messages) {
     Gson gson = new Gson();
     String jsonMessages = gson.toJson(messages);
     return jsonMessages;
