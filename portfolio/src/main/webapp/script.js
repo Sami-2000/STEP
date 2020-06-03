@@ -55,7 +55,6 @@ function getComments() {
 
     const commentSectionContainer = document.getElementById('comment-section-container');
 
-    // Add each comment to container as comment element.
     for(const comment of comments) {
       commentSectionContainer.appendChild(createCommentElement(comment));
     }

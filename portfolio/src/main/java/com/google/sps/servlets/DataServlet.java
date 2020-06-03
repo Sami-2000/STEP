@@ -14,13 +14,13 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import com.google.gson.Gson;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -42,7 +42,6 @@ public class DataServlet extends HttpServlet {
     response.sendRedirect("/index.html");
   }
 
-  // Use GSON to convert an ArrayList to a JSON String.
   private String convertToJsonUsingGson(ArrayList<String> messages) {
     Gson gson = new Gson();
     String jsonMessages = gson.toJson(messages);
