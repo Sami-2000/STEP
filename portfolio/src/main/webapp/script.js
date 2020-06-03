@@ -57,12 +57,10 @@ function getMessages() {
     const messageContainer = document.getElementById('message-container');
 
     // Add each message to container as list element.
-    messageContainer.appendChild(
-        createListElement(messages[0]));
-    messageContainer.appendChild(
-        createListElement(messages[1]));
-    messageContainer.appendChild(
-        createListElement(messages[2]));
+    for (let i = 0; i < 3; i++) {
+      messageContainer.appendChild(
+      createListElement(messages[i]));
+    }
   });
 }
 
