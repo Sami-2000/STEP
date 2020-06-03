@@ -58,8 +58,7 @@ function getMessages() {
 
     // Add each message to container as list element.
     for (let i = 0; i < 3; i++) {
-      messageContainer.appendChild(
-      createListElement(messages[i]));
+      messageContainer.appendChild(createListElement(messages[i]));
     }
   });
 }
