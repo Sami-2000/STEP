@@ -48,7 +48,10 @@ function bubbleFall() {
     }
 }
 
-// Get comments from the data servlet.
+/**
+ * Get comments from the data servlet.
+ * @param {ArrayList<String>} comments
+ */
 function getComments() {
   fetch('/data').then(response => response.json()).then((comments) => {
     console.log(comments);
@@ -60,9 +63,13 @@ function getComments() {
       commentSectionContainer.appendChild(createCommentElement(comment));
     }
   });
-}S
+}
 
-// Creates an <comment> element containing text.
+/**
+ * Creates an <comment-container> element from an input text.
+ * @param {String} text
+ * @return {<div id="comment-container">} commentContainer
+ */
 function createCommentElement(text) {
   const commentContainer = document.createElement('div');
   commentContainer.className = 'comment-container';
