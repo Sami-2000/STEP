@@ -26,20 +26,20 @@ import com.google.gson.Gson;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private ArrayList<String> comments = new ArrayList<String>();    
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Create messages array list.
-    ArrayList<String> messages = new ArrayList<String>();
-    messages.add("Good morning.");
-    messages.add("Good afternoon.");
-    messages.add("Good evening.");
-
-    // Convert messages to JSON String.
-    String jsonMessages = convertToJsonUsingGson(messages);
-
-    // Send the JSON String as response.
+    String jsonComments = convertToJsonUsingGson(comments);
     response.setContentType("application/json;");
-    response.getWriter().println(jsonMessages);
+    response.getWriter().println(jsonComments);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String comment = request.getParameter("text-input");
+    comments.add(comment);
+    response.sendRedirect("/index.html");
   }
 
   // Use GSON to convert an ArrayList to a JSON String.

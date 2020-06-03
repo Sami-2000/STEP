@@ -48,28 +48,24 @@ function bubbleFall() {
     }
 }
 
-// Get messages from the data servlet.
-function getMessages() {
-  fetch('/data').then(response => response.json()).then((messages) => {
-    console.log(messages);
+// Get comments from the data servlet.
+function getComments() {
+  fetch('/data').then(response => response.json()).then((comments) => {
+    console.log(comments);
 
-    // Find container.
-    const messageContainer = document.getElementById('message-container');
+    const commentSectionContainer = document.getElementById('comment-section-container');
 
-    // Add each message to container as list element.
-    messageContainer.appendChild(
-        createListElement(messages[0]));
-    messageContainer.appendChild(
-        createListElement(messages[1]));
-    messageContainer.appendChild(
-        createListElement(messages[2]));
+    // Add each comment to container as comment element.
+    for(const comment of comments) {
+      commentSectionContainer.appendChild(createCommentElement(comment));
+    }
   });
-}
+}S
 
-// Creates an <li> element containing text.
-// COPIED FROM SERVER-STATS EXAMPLE.
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+// Creates an <comment> element containing text.
+function createCommentElement(text) {
+  const commentContainer = document.createElement('div');
+  commentContainer.className = 'comment-container';
+  commentContainer.innerText = text;
+  return commentContainer;
 }
