@@ -32,15 +32,18 @@ import java.util.ArrayList;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private final String COMMENT_ENTITY_ID = "Comment";
+  private final String TEXT_PARAMETER_KEY = "text";
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment");
+    Query query = new Query(COMMENT_ENTITY_ID);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery queryResults = datastore.prepare(query);
 
     ArrayList<String> comments = new ArrayList<String>();    
     for (Entity commentEntity : queryResults.asIterable()) {
-      String commentText = (String) entity.getProperty("text");
+      String commentText = (String) commentEntity.getProperty(TEXT_PARAMETER_KEY);
       comments.add(commentText);
     }
     
@@ -55,8 +58,8 @@ public class DataServlet extends HttpServlet {
     String comment = request.getParameter("text-input");
 
     // TODO: Add unique entity keys?
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("text", comment);
+    Entity commentEntity = new Entity(COMMENT_ENTITY_ID);
+    commentEntity.setProperty(TEXT_PARAMETER_KEY, comment);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
