@@ -65,7 +65,7 @@ function getComments() {
 }
 
 /**
- * Creates an <comment-container> element from an input text.
+ * Creates an <comment-container> element from input text.
  * @param {String} text
  * @return {<div id="comment-container">} commentContainer
  */
