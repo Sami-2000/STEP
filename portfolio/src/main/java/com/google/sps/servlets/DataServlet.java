@@ -43,6 +43,7 @@ public class DataServlet extends HttpServlet {
     String comment = request.getParameter("text-input");
 
     // Add comment to datastore as new entity.
+    // TODO: add id to identify comments by
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", comment);
