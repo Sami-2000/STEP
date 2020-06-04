@@ -36,12 +36,12 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
+    PreparedQuery queryResults = datastore.prepare(query);
 
     ArrayList<String> comments = new ArrayList<String>();    
-    for (Entity entity : results.asIterable()) {
-      String text = (String) entity.getProperty("text");
-      comments.add(text);
+    for (Entity commentEntity : queryResults.asIterable()) {
+      String commentText = (String) entity.getProperty("text");
+      comments.add(commentText);
     }
     
     String jsonComments = convertToJsonUsingGson(comments);
