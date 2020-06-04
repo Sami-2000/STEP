@@ -57,7 +57,6 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("text-input");
 
-    // TODO: Add unique entity keys?
     Entity commentEntity = new Entity(COMMENT_ENTITY_ID);
     commentEntity.setProperty(TEXT_PARAMETER_KEY, comment);
 
