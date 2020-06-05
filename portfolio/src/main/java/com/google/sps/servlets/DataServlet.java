@@ -40,7 +40,7 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int numberComments = Integer.parseInt(request.getParameter("number-of-comments"));
 
-    Query query = new Query(COMMENT_ENTITY_ID);
+    Query query = new Query(COMMENT_ENTITY_ID).addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery queryResults = datastore.prepare(query);
 
@@ -64,9 +64,11 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("text-input");
+    long timestamp = System.currentTimeMillis();
 
     Entity commentEntity = new Entity(COMMENT_ENTITY_ID);
     commentEntity.setProperty(TEXT_PARAMETER_KEY, comment);
+    commentEntity.setProperty("timestamp", timestamp);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
