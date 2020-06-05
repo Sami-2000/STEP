@@ -55,35 +55,14 @@ function bubbleFall() {
 function getComments() {
   const userNumComments = document.getElementById('number-of-comments').value;
   let baseUrl = '/data?number-of-comments=';
-  let url = baseUrl.concat(userNumComments.toString());
-
-  fetch(url).then(response => response.json()).then((comments) => {
-    console.log(comments);
-
-    const commentSectionContainer = document.getElementById('comment-section-container');
-
-    for(const comment of comments) {
-      commentSectionContainer.appendChild(createCommentElement(comment));
-    }
-  });
-}
-
-/**
- * Clear current comments.
- * Get desired number of comments from the data servlet.
- * @param {ArrayList<String>} comments
- */
-function setNumComments() {
-  const userNumComments = document.getElementById('number-of-comments').value;
-  let baseUrl = '/data?number-of-comments=';
-  let url = baseUrl.concat(userNumComments.toString());
+  let url = baseUrl + userNumComments.toString();
 
   fetch(url).then(response => response.json()).then((comments) => {
     console.log(comments);
 
     const commentSectionContainer = document.getElementById('comment-section-container');
     commentSectionContainer.innerHTML = '';
-
+    
     for(const comment of comments) {
       commentSectionContainer.appendChild(createCommentElement(comment));
     }
