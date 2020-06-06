@@ -53,13 +53,11 @@ function bubbleFall() {
  * @param {ArrayList<String>} comments
  */
 function getComments() {
-  const baseURL = '/data';
-  let params = (new URL('https://' + location.hostname + baseURL)).searchParams;
-  const userNumComments = document.getElementById('number-of-comments').value;
-  params.append('number-of-comments', userNumComments);
+    let url = new URL('/data', location.protocol + '//' + location.hostname);
+    const userNumComments = document.getElementById('number-of-comments').value;
+    url.searchParams.append('number-of-comments', userNumComments);
 
-  console.log(params.toString());
-  fetch(baseURL + '?' + params.toString()).then(response => response.json()).then((comments) => {
+    fetch(url).then(response => response.json()).then(comments => {
     console.log(comments);
 
     const commentSectionContainer = document.getElementById('comment-section-container');
