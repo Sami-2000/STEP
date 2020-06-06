@@ -17,6 +17,7 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -27,8 +28,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
@@ -37,14 +38,21 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(COMMENT_ENTITY_ID);
+    int numberComments = Integer.parseInt(request.getParameter("number-of-comments"));
+
+    Query query = new Query(COMMENT_ENTITY_ID).addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery queryResults = datastore.prepare(query);
 
-    ArrayList<String> comments = new ArrayList<String>();    
-    for (Entity commentEntity : queryResults.asIterable()) {
-      String commentText = (String) commentEntity.getProperty(TEXT_PARAMETER_KEY);
-      comments.add(commentText);
+    ArrayList<String> comments = new ArrayList<String>();  
+  
+    Iterable<Entity> resultsIteratable = queryResults.asIterable();
+    Iterator<Entity> resultsIterator = resultsIteratable.iterator();
+    for (int i = 0; i < numberComments; i++) {
+      if (resultsIterator.hasNext()) {
+        String commentText = (String) resultsIterator.next().getProperty(TEXT_PARAMETER_KEY);
+        comments.add(commentText);
+      }
     }
     
     String jsonComments = convertToJsonUsingGson(comments);
@@ -56,9 +64,11 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("text-input");
+    long timestamp = System.currentTimeMillis();
 
     Entity commentEntity = new Entity(COMMENT_ENTITY_ID);
     commentEntity.setProperty(TEXT_PARAMETER_KEY, comment);
+    commentEntity.setProperty("timestamp", timestamp);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
@@ -71,4 +81,5 @@ public class DataServlet extends HttpServlet {
     String jsonMessages = gson.toJson(messages);
     return jsonMessages;
   }
+
 }
