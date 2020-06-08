@@ -30,11 +30,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static constant.Constants.COMMENT_ENTITY_ID;
+import static constant.Constants.TEXT_PARAMETER_KEY;
+
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private final String COMMENT_ENTITY_ID = "Comment";
-  private final String TEXT_PARAMETER_KEY = "text";
+  //private final String COMMENT_ENTITY_ID = "Comment";
+  //private final String TEXT_PARAMETER_KEY = "text";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

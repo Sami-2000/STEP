@@ -24,6 +24,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
+import java.io.*;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,10 +33,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static constant.Constants.COMMENT_ENTITY_ID;
+
 @WebServlet("/delete-data")
 public class DeleteDataServlet extends HttpServlet {
-
-  private final String COMMENT_ENTITY_ID = "Comment";
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
