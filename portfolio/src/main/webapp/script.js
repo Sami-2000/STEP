@@ -82,8 +82,7 @@ function createCommentElement(text) {
 }
 
 /**
- * Calls post method of delete-data servlet to delete all comments.
- * Calls getComments() to update the page.
+ * Deletes all comments and refreshes comments displayed on the page.
  */
 function deleteComments() {
     const request = new Request('/delete-data', {method: 'POST'});
