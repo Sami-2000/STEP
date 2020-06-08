@@ -30,8 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static constant.Constants.COMMENT_ENTITY_ID;
-import static constant.Constants.TEXT_PARAMETER_KEY;
+import static Constants.COMMENT_ENTITY_ID;
+import static Constants.TEXT_PARAMETER_KEY;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
