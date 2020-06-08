@@ -1,4 +1,4 @@
-package constant;
+package com.google.sps.servlets;
 
 public final class Constants {
     private Constants(){}
