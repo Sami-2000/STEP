@@ -36,9 +36,6 @@ import static constant.Constants.TEXT_PARAMETER_KEY;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  //private final String COMMENT_ENTITY_ID = "Comment";
-  //private final String TEXT_PARAMETER_KEY = "text";
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int numberComments = Integer.parseInt(request.getParameter("number-of-comments"));
