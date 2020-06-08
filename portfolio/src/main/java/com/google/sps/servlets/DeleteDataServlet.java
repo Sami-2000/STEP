@@ -18,10 +18,13 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
+import java.io.*;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,55 +34,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import static constant.Constants.COMMENT_ENTITY_ID;
-import static constant.Constants.TEXT_PARAMETER_KEY;
 
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
-
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    int numberComments = Integer.parseInt(request.getParameter("number-of-comments"));
-
-    Query query = new Query(COMMENT_ENTITY_ID).addSort("timestamp", SortDirection.DESCENDING);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery queryResults = datastore.prepare(query);
-
-    ArrayList<String> comments = new ArrayList<String>();  
-  
-    Iterable<Entity> resultsIteratable = queryResults.asIterable();
-    Iterator<Entity> resultsIterator = resultsIteratable.iterator();
-    for (int i = 0; i < numberComments; i++) {
-      if (resultsIterator.hasNext()) {
-        String commentText = (String) resultsIterator.next().getProperty(TEXT_PARAMETER_KEY);
-        comments.add(commentText);
-      }
-    }
-    
-    String jsonComments = convertToJsonUsingGson(comments);
-
-    response.setContentType("application/json;");
-    response.getWriter().println(jsonComments);
-  }
+@WebServlet("/delete-data")
+public class DeleteDataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("text-input");
-    long timestamp = System.currentTimeMillis();
-
-    Entity commentEntity = new Entity(COMMENT_ENTITY_ID);
-    commentEntity.setProperty(TEXT_PARAMETER_KEY, comment);
-    commentEntity.setProperty("timestamp", timestamp);
-
+    Query query = new Query(COMMENT_ENTITY_ID).setKeysOnly();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentEntity);
+    PreparedQuery queryResults = datastore.prepare(query);
 
+    Iterable<Entity> resultsIteratable = queryResults.asIterable();
+    Iterator<Entity> resultsIterator = resultsIteratable.iterator();
+    
+    while (resultsIterator.hasNext()) {
+      datastore.delete(resultsIterator.next().getKey());
+    }
     response.sendRedirect("/index.html");
   }
-
-  private String convertToJsonUsingGson(ArrayList<String> messages) {
-    Gson gson = new Gson();
-    String jsonMessages = gson.toJson(messages);
-    return jsonMessages;
-  }
-
 }

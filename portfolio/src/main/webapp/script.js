@@ -80,3 +80,11 @@ function createCommentElement(text) {
   commentContainer.innerText = text;
   return commentContainer;
 }
+
+/**
+ * Deletes all comments and refreshes comments displayed on the page.
+ */
+function deleteComments() {
+    const request = new Request('/delete-data', {method: 'POST'});
+    fetch(request).then(getComments());
+}
