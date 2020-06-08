@@ -3,7 +3,7 @@ google.charts.setOnLoadCallback(drawStaticPieChart);
  
 /** Creates a chart and adds it to the page. */
 function drawStaticPieChart() {
-  var data = google.visualization.arrayToDataTable([
+  const data = google.visualization.arrayToDataTable([
     ['Activity', 'Hours per Week'],
     ['Internship',     40],
     ['Baking',      6],
@@ -18,7 +18,7 @@ function drawStaticPieChart() {
     ['Seeing Friends',  0]
   ]);
  
-  var options = {
+  const options = {
     title: 'How I Spend a Week in Quarentine',
       is3D: true,
       'width':800,
