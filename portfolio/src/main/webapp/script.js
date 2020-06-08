@@ -80,3 +80,8 @@ function createCommentElement(text) {
   commentContainer.innerText = text;
   return commentContainer;
 }
+
+function deleteComments() {
+    const request = new Request('/delete-data', {method: 'POST'});
+    fetch(request).then(getComments());
+}
