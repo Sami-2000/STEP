@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static Constants.COMMENT_ENTITY_ID;
+import static com.google.sps.servlets.Constants.COMMENT_ENTITY_ID;
 
 @WebServlet("/delete-data")
 public class DeleteDataServlet extends HttpServlet {

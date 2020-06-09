@@ -1,7 +1,36 @@
 google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawStaticPieChart);
+google.charts.setOnLoadCallback(drawCharts);
  
-/** Creates a chart and adds it to the page. */
+
+function drawCharts() {
+  drawStaticPieChart();
+  drawLineChart();
+}
+
+/* Creates a line chart of women on Fortune 500 boards and adds it to the page. */
+function drawLineChart() {
+  fetch('/chart-data').then(response => response.json())
+  .then((percentRepresentation) => {
+    const data = new google.visualization.DataTable();
+    data.addColumn('string', 'Year');
+    data.addColumn('number', 'Percent Female');
+    Object.keys(percentRepresentation).forEach((year) => {
+      data.addRow([year, percentRepresentation[year]]);
+    });
+
+    const options = {
+      'title': 'Female Representation on Fortune 500 Company Boards',
+      'width':800,
+      'height':1200
+    };
+
+    const chart = new google.visualization.LineChart(
+        document.getElementById('line-chart-container'));
+    chart.draw(data, options);
+  });
+}
+
+/* Creates a pie chart of quarentine activities and adds it to the page. */
 function drawStaticPieChart() {
   const data = google.visualization.arrayToDataTable([
     ['Activity', 'Hours per Week'],
