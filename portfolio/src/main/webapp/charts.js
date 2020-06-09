@@ -5,6 +5,30 @@ google.charts.setOnLoadCallback(drawCharts);
 function drawCharts() {
   drawStaticPieChart();
   drawLineChart();
+  drawBarChart();
+}
+
+/* Creates interactive bar chart saying if I'm cool. */
+function drawBarChart() {
+  fetch('/cool-data').then(response => response.json())
+      .then((coolVotes) => {
+    const data = new google.visualization.DataTable();
+    data.addColumn('string', 'Cool?');
+    data.addColumn('number', 'Votes');
+    Object.keys(coolVotes).forEach((coolCategory) => {
+      data.addRow([coolCategory, coolVotes[coolCategory]]);
+    });
+
+    const options = {
+      'title': 'Am I Cool?',
+      'width': 800,
+      'height': 1200,
+    };
+
+    const chart = new google.visualization.ColumnChart(
+        document.getElementById('bar-chart-container'));
+    chart.draw(data, options);
+  });
 }
 
 /* Creates a line chart of women on Fortune 500 boards and adds it to the page. */
