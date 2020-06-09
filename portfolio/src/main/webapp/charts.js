@@ -8,7 +8,7 @@ function drawCharts() {
   drawBarChart();
 }
 
-/*Creates interactive bar chart saying if I'm cool.*/
+/* Creates interactive bar chart saying if I'm cool. */
 function drawBarChart() {
   fetch('/cool-data').then(response => response.json())
   .then((coolVotes) => {
