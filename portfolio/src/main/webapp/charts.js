@@ -11,7 +11,7 @@ function drawCharts() {
 /*Creates interactive bar chart saying if I'm cool.*/
 function drawBarChart() {
   fetch('/cool-data').then(response => response.json())
-  .then((coolVotes) => {
+      .then((coolVotes) => {
     const data = new google.visualization.DataTable();
     data.addColumn('string', 'Cool?');
     data.addColumn('number', 'Votes');
