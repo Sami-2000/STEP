@@ -21,8 +21,8 @@ function drawBarChart() {
 
     const options = {
       'title': 'Am I Cool?',
-      'width':800,
-      'height':1200
+      'width': 800,
+      'height': 1200,
     };
 
     const chart = new google.visualization.ColumnChart(
