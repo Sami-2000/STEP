@@ -8,7 +8,7 @@ function drawCharts() {
   drawBarChart();
 }
 
-/*Creates interactive bar chart saying if I'm cool.*/
+/* Creates interactive bar chart saying if I'm cool. */
 function drawBarChart() {
   fetch('/cool-data').then(response => response.json())
       .then((coolVotes) => {
@@ -21,8 +21,8 @@ function drawBarChart() {
 
     const options = {
       'title': 'Am I Cool?',
-      'width':800,
-      'height':1200
+      'width': 800,
+      'height': 1200,
     };
 
     const chart = new google.visualization.ColumnChart(
