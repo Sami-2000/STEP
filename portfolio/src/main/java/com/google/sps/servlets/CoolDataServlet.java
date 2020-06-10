@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/cool-data")
 public class CoolDataServlet extends HttpServlet {
 
-  //Hashmap to map a string (eg. "Cool") to its number of votes
+  // Hashmap to map a string (eg. "Cool") to its number of votes
   private Map<String, Integer> coolVotes = new HashMap<>();
 
   @Override
