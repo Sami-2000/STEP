@@ -43,13 +43,13 @@ public final class FindMeetingQuery {
         continue;
       }
       long start = Long.valueOf(conflictTime.start());
-      if ((start > currentTime) && ((Long.valueOf(start) - currentTime) >= duration)) {
+      if ((start > currentTime) && ((start - currentTime) >= duration)) {
         results.add(TimeRange.fromStartEnd((int)currentTime, (int)start, false));
       }
       currentTime = conflictTime.end();
       previous = conflictTime;
     }
-    if ((Long.valueOf(TimeRange.END_OF_DAY) - currentTime) >= duration) {
+    if ((TimeRange.END_OF_DAY - currentTime) >= duration) {
       results.add(TimeRange.fromStartEnd((int)currentTime, TimeRange.END_OF_DAY, true));
     }
     return results;
