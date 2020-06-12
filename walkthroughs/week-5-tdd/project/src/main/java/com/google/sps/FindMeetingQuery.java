@@ -21,9 +21,28 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public final class FindMeetingQuery {
+  /* If we can accomodate optional attendees, do so. Otherwise if there are required attendees,
+  ignore optional attendees.*/
+  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    Collection<String> totalAttendees = new ArrayList<String>();
+    totalAttendees.addAll(request.getAttendees());
+    totalAttendees.addAll(request.getOptionalAttendees());
+
+    MeetingRequest requestWithOptionals = new MeetingRequest(totalAttendees, 
+        request.getDuration());
+    Collection<TimeRange> optResults = query2(events, requestWithOptionals);
+    
+    if ((optResults.isEmpty()) && (!request.getAttendees().isEmpty())) {
+      return query2(events, request);
+    }
+    else {
+      return optResults;
+    }
+  }
+
   /* Identify conflicting events, then iterating through the day, skipping conflicts, and 
   identifying time ranges longer than the duration of the requested meeting. */
-  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+  public Collection<TimeRange> query2(Collection<Event> events, MeetingRequest request) {
     ArrayList<TimeRange> results = new ArrayList<TimeRange>();
 
     ArrayList<TimeRange> conflicts = findConflicts(events, request);
