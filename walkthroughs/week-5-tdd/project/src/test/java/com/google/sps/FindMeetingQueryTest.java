@@ -87,7 +87,6 @@ public final class FindMeetingQueryTest {
         TimeRange.fromStartDuration(TIME_0830AM, DURATION_30_MINUTES), Arrays.asList(PERSON_A)));
 
     MeetingRequest request = new MeetingRequest(Arrays.asList(PERSON_A), DURATION_30_MINUTES);
-    
     Collection<TimeRange> actual = query.query(events, request);
     Collection<TimeRange> expected =
         Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_0830AM, false),
@@ -278,8 +277,8 @@ public final class FindMeetingQueryTest {
     // Have each person have different events. We should see two options because each person has
     // split the restricted times. Optional attendee with full day commitment should not affect results.
     //
-    // Events  :       |--A--|     |--B--|
-    //           |--------------C--------------|
+    // Events  :       |--A--|     |--B--|       (required)
+    //           |--------------C--------------| (optional)
     // Day     : |-----------------------------|
     // Options : |--1--|     |--2--|     |--3--|
 
@@ -294,7 +293,6 @@ public final class FindMeetingQueryTest {
     MeetingRequest request =
         new MeetingRequest(Arrays.asList(PERSON_A, PERSON_B), DURATION_30_MINUTES);
     request.addOptionalAttendee(PERSON_C);
-
 
     Collection<TimeRange> actual = query.query(events, request);
     Collection<TimeRange> expected =
@@ -326,7 +324,6 @@ public final class FindMeetingQueryTest {
     MeetingRequest request =
         new MeetingRequest(Arrays.asList(PERSON_A, PERSON_B), DURATION_30_MINUTES);
     request.addOptionalAttendee(PERSON_C);
-
 
     Collection<TimeRange> actual = query.query(events, request);
     Collection<TimeRange> expected =
@@ -412,11 +409,9 @@ public final class FindMeetingQueryTest {
     request.addOptionalAttendee(PERSON_A);
     request.addOptionalAttendee(PERSON_B);
 
-
     Collection<TimeRange> actual = query.query(events, request);
     Collection<TimeRange> expected = Arrays.asList();
 
     Assert.assertEquals(expected, actual);
   }
 }
-
