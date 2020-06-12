@@ -277,8 +277,8 @@ public final class FindMeetingQueryTest {
     // Have each person have different events. We should see two options because each person has
     // split the restricted times. Optional attendee with full day commitment should not affect results.
     //
-    // Events  :       |--A--|     |--B--|
-    //           |--------------C--------------|
+    // Events  :       |--A--|     |--B--|       (required)
+    //           |--------------C--------------| (optional)
     // Day     : |-----------------------------|
     // Options : |--1--|     |--2--|     |--3--|
 
