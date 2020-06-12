@@ -308,8 +308,8 @@ public final class FindMeetingQueryTest {
     // Two required attendees should yield three possible time ranges. Optional attendee C
     // Should eliminate the middle time range.
     //
-    // Events  :       |--A--|     |--B--|
-    //                        |-C-|
+    // Events  :       |--A--|     |--B--|      (required)
+    //                        |-C-|             (optional)
     // Day     : |-----------------------------|
     // Options : |--1--|                 |--3--|
 
@@ -338,7 +338,8 @@ public final class FindMeetingQueryTest {
     // Have one person, but make it so that there is just enough room at one point in the day to
     // have the meeting. Optional attendee with conflict should not affect results.
     //
-    // Events  : |--A--||-B-||----A----|
+    // Events  : |--A--|     |----A----|(required)
+    //                 |--B--|          (optional)
     // Day     : |---------------------|
     // Options :       |-----|
 
@@ -364,7 +365,7 @@ public final class FindMeetingQueryTest {
   public void onlyOptionalAttendees() {
     // Only two optional attendees. Both can be accounted for.
     //
-    // Events  :       |--A--|     |--B--|
+    // Events  :       |--A--|     |--B--|      (optional)
     // Day     : |-----------------------------|
     // Options : |--1--|     |--2--|     |--3--|
 
@@ -394,7 +395,7 @@ public final class FindMeetingQueryTest {
     // Only two optional attendees with no gaps in their schedules.
     // Should return no time ranges.
     //
-    // Events  : |------A------||-----B-----|
+    // Events  : |------A------||------B------| (optional)
     // Day     : |-----------------------------|
     // Options : 
 
