@@ -15,10 +15,12 @@
 package com.google.sps;
 
 import java.lang.Math;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Queue;
 
 public final class FindMeetingQuery {
   /* If we can accomodate optional attendees, do so. Otherwise if there are required attendees,
@@ -33,11 +35,45 @@ public final class FindMeetingQuery {
     Collection<TimeRange> optResults = queryInternal(events, requestWithOptionals);
     
     if ((optResults.isEmpty()) && (!request.getAttendees().isEmpty())) {
-      return queryInternal(events, request);
+      return queryBFS(events, requestWithOptionals.getDuration(), request.getAttendees(),
+          request.getOptionalAttendees());
     }
     else {
       return optResults;
     }
+  }
+
+  /* Follow a BFS, removing optional attendees gradually and returning when you find a timerange
+  which accommodates the remaining optional attendees and the required attendees. If you never
+  find such a timerange, return the results just accounting for required attendees. */
+  public Collection<TimeRange> queryBFS(Collection<Event> events, long duration, Collection<String> reqAttendees,
+        Collection<String> optAttendees) {
+    Queue<Collection<String>> queue = new ArrayDeque<Collection<String>>();
+    queue.add(optAttendees);
+    Collection<TimeRange> results = new ArrayList<TimeRange>();
+
+    while (!queue.isEmpty()) {
+      Collection<String> curOptAttendees = queue.remove();        
+      Collection<String> curAttendees = new ArrayList<String>();
+      curAttendees.addAll(curOptAttendees);
+      curAttendees.addAll(reqAttendees);
+
+      MeetingRequest curRequest = new MeetingRequest(curAttendees, 
+          duration);
+      results = queryInternal(events, curRequest);
+      if (!results.isEmpty()) {
+        return results;
+      }
+      else {
+        for (String optAttendee : curOptAttendees) {
+          Collection<String> newOptAttendees = new ArrayList<String>();
+          newOptAttendees.addAll(curOptAttendees);
+          newOptAttendees.remove(optAttendee);
+          queue.add(newOptAttendees);
+        }
+      }
+    }
+    return results;
   }
 
   /* Identify conflicting events, then iterating through the day, skipping conflicts, and 
