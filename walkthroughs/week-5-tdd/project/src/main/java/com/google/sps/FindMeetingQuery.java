@@ -73,8 +73,8 @@ public final class FindMeetingQuery {
         }
       }
     }
-    MeetingRequest reqRequest = new MeetingRequest(reqAttendees, request.getDuration());
-    return queryInternal(events, reqRequest);
+    //MeetingRequest reqRequest = new MeetingRequest(reqAttendees, request.getDuration());
+    //return queryInternal(events, reqRequest);
   }
 
   /* Identify conflicting events, then iterating through the day, skipping conflicts, and 
