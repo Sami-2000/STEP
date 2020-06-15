@@ -419,8 +419,8 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void optimizeAttendence() {
-    // One required attendee yields two possible time ranges. One the later one should
-    // be returnd to maximize optional attendee attendence.
+    // One required attendee yields two possible time ranges. Return the later one should
+    // to maximize optional attendee attendance.
     //
     // Events  :      |---------A---------|     (required)
     //           |-B-|                     |-C-|(optional)

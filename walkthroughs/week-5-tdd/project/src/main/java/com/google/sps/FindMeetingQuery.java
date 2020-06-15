@@ -15,10 +15,10 @@
 package com.google.sps;
 
 import java.lang.Math;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Queue;
 
@@ -44,7 +44,7 @@ public final class FindMeetingQuery {
   }
 
   /* Follow a BFS, removing optional attendees gradually and returning when you find a timerange
-  which accomodates the remaining optional attendees and the required attendees. If you never
+  which accommodates the remaining optional attendees and the required attendees. If you never
   find such a timerange, return the results just accounting for required attendees. */
   public Collection<TimeRange> queryBFS(Collection<Event> events, MeetingRequest request, Collection<String> reqAttendees,
         Collection<String> optAttendees) {
