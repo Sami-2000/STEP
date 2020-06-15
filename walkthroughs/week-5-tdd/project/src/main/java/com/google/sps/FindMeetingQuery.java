@@ -66,27 +66,15 @@ public final class FindMeetingQuery {
       
       else {
         for (String optAttendee : curOptAttendees) {
-          ArrayList<String> newOptAttendees = new ArrayList<String>();
+          Collection<String> newOptAttendees = new ArrayList<String>();
           newOptAttendees.addAll(curOptAttendees);
           newOptAttendees.remove(optAttendee);
-          if (isSorted(newOptAttendees)) {
-            queue.add(newOptAttendees);
-          }
+          queue.add(newOptAttendees);
         }
       }
     }
     MeetingRequest reqRequest = new MeetingRequest(reqAttendees, request.getDuration());
     return queryInternal(events, reqRequest);
-  }
-
-  public boolean isSorted(ArrayList<String> arr) {
-    boolean result = true;
-    for (int i = 1; i < arr.size(); i ++) {
-      if (arr.get(i-1).compareTo(arr.get(i)) > 0) {
-        result = false;
-      }
-    }
-    return result;
   }
 
   /* Identify conflicting events, then iterating through the day, skipping conflicts, and 
