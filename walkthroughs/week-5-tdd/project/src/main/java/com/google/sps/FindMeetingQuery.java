@@ -50,6 +50,7 @@ public final class FindMeetingQuery {
         Collection<String> optAttendees) {
     Queue<Collection<String>> queue = new ArrayDeque<Collection<String>>();
     queue.add(optAttendees);
+    Collection<TimeRange> results = new ArrayList<TimeRange>();
 
     while (!queue.isEmpty()) {
       Collection<String> curOptAttendees = queue.remove();        
@@ -59,11 +60,10 @@ public final class FindMeetingQuery {
 
       MeetingRequest curRequest = new MeetingRequest(curAttendees, 
           request.getDuration());
-      Collection<TimeRange> results = queryInternal(events, curRequest);
+      results = queryInternal(events, curRequest);
       if (!results.isEmpty()) {
         return results;
       }
-      
       else {
         for (String optAttendee : curOptAttendees) {
           Collection<String> newOptAttendees = new ArrayList<String>();
@@ -73,8 +73,7 @@ public final class FindMeetingQuery {
         }
       }
     }
-    //MeetingRequest reqRequest = new MeetingRequest(reqAttendees, request.getDuration());
-    //return queryInternal(events, reqRequest);
+    return results;
   }
 
   /* Identify conflicting events, then iterating through the day, skipping conflicts, and 
