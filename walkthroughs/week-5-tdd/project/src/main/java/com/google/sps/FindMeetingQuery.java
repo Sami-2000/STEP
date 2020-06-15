@@ -35,7 +35,7 @@ public final class FindMeetingQuery {
     Collection<TimeRange> optResults = queryInternal(events, requestWithOptionals);
     
     if ((optResults.isEmpty()) && (!request.getAttendees().isEmpty())) {
-      return queryBFS(events, requestWithOptionals, request.getAttendees(),
+      return queryBFS(events, requestWithOptionals.getDuration(), request.getAttendees(),
           request.getOptionalAttendees());
     }
     else {
@@ -46,7 +46,7 @@ public final class FindMeetingQuery {
   /* Follow a BFS, removing optional attendees gradually and returning when you find a timerange
   which accommodates the remaining optional attendees and the required attendees. If you never
   find such a timerange, return the results just accounting for required attendees. */
-  public Collection<TimeRange> queryBFS(Collection<Event> events, MeetingRequest request, Collection<String> reqAttendees,
+  public Collection<TimeRange> queryBFS(Collection<Event> events, long duration, Collection<String> reqAttendees,
         Collection<String> optAttendees) {
     Queue<Collection<String>> queue = new ArrayDeque<Collection<String>>();
     queue.add(optAttendees);
@@ -59,7 +59,7 @@ public final class FindMeetingQuery {
       curAttendees.addAll(reqAttendees);
 
       MeetingRequest curRequest = new MeetingRequest(curAttendees, 
-          request.getDuration());
+          duration);
       results = queryInternal(events, curRequest);
       if (!results.isEmpty()) {
         return results;
