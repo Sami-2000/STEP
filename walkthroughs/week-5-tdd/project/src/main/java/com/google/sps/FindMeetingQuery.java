@@ -44,7 +44,7 @@ public final class FindMeetingQuery {
   }
 
   /* Follow a BFS, removing optional attendees gradually and returning when you find a timerange
-  which accomodates the remaining optional attendees and the required attendees. If you never
+  which accommodates the remaining optional attendees and the required attendees. If you never
   find such a timerange, return the results just accounting for required attendees. */
   public Collection<TimeRange> queryBFS(Collection<Event> events, MeetingRequest request, Collection<String> reqAttendees,
         Collection<String> optAttendees) {
