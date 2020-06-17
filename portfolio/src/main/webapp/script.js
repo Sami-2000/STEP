@@ -48,16 +48,29 @@ function bubbleFall() {
     }
 }
 
+function fetchBlobstoreUrlandShowForm() {
+  fetch('/blobstore-upload-url')
+      .then((response) => {
+    return response.text();
+    })
+    .then((imageUploadUrl) => {
+      const commentForm = document.getElementById('comment-form');
+      commentForm.action = imageUploadUrl;
+      commentForm.classList.remove('hidden');
+    });
+ }
+
 /**
  * Get comments from the data servlet.
  * @param {ArrayList<String>} comments
  */
 function getComments() {
-    let url = new URL('/data', location.protocol + '//' + location.hostname);
-    const userNumComments = document.getElementById('number-of-comments').value;
-    url.searchParams.append('number-of-comments', userNumComments);
+  fetchBlobstoreUrlandShowForm();
+  let url = new URL('/data', location.protocol + '//' + location.hostname);
+  const userNumComments = document.getElementById('number-of-comments').value;
+  url.searchParams.append('number-of-comments', userNumComments);
 
-    fetch(url).then(response => response.json()).then(comments => {
+  fetch(url).then(response => response.json()).then(comments => {
     console.log(comments);
 
     const commentSectionContainer = document.getElementById('comment-section-container');
