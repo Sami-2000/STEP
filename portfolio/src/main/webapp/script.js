@@ -73,9 +73,8 @@ function getComments() {
   fetch(url).then(response => response.json()).then(comments => {
     const commentSectionContainer = document.getElementById('comment-section-container');
     commentSectionContainer.innerHTML = '';
-    console.log(comments);
+    console.log("List of comments: " + comments);
     for (const comment of comments) {
-      console.log(typeof comment);
       commentSectionContainer.appendChild(createCommentElement(comment.text, comment.imgUrl));
     }
   });
