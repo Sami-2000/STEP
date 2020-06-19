@@ -71,13 +71,11 @@ function getComments() {
   url.searchParams.append('number-of-comments', userNumComments);
 
   fetch(url).then(response => response.json()).then(comments => {
-    console.log(comments);
-
     const commentSectionContainer = document.getElementById('comment-section-container');
     commentSectionContainer.innerHTML = '';
-    
-    for(const comment of comments) {
-      commentSectionContainer.appendChild(createCommentElement(comment));
+    console.log("List of comments: " + comments);
+    for (const comment of comments) {
+      commentSectionContainer.appendChild(createCommentElement(comment.text, comment.imgUrl));
     }
   });
 }
@@ -87,10 +85,16 @@ function getComments() {
  * @param {String} text
  * @return {<div id="comment-container">} commentContainer
  */
-function createCommentElement(text) {
+function createCommentElement(text, imageUrl) {
+  console.log(text);
   const commentContainer = document.createElement('div');
   commentContainer.className = 'comment-container';
   commentContainer.innerText = text;
+  if (imageUrl != null) {
+    const img=document.createElement('img');
+    img.src = imageUrl;
+    commentContainer.appendChild(img);
+  }
   return commentContainer;
 }
 
