@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,19 +58,19 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery queryResults = datastore.prepare(query);
 
-    ArrayList<String> comments = new ArrayList<String>();  
-  
+    ArrayList<CommentObject> comments = new ArrayList<CommentObject>();  
     Iterable<Entity> resultsIteratable = queryResults.asIterable();
     Iterator<Entity> resultsIterator = resultsIteratable.iterator();
     for (int i = 0; i < numberComments; i++) {
       if (resultsIterator.hasNext()) {
-        String commentText = (String) resultsIterator.next().getProperty(TEXT_PARAMETER_KEY);
-        comments.add(commentText);
+        Entity comment = resultsIterator.next();
+        CommentObject newComment = new CommentObject((String) comment.getProperty(TEXT_PARAMETER_KEY), (String) comment.getProperty("image_url"));
+        comments.add(newComment);
       }
     }
-    
-    String jsonComments = convertToJsonUsingGson(comments);
-
+    System.out.println(comments);
+    String jsonComments = new Gson().toJson(comments);
+    System.out.println(jsonComments);
     response.setContentType("application/json;");
     response.getWriter().println(jsonComments);
   }
@@ -125,11 +126,4 @@ public class DataServlet extends HttpServlet {
       return imagesService.getServingUrl(options);
     }
   }
-
-  private String convertToJsonUsingGson(ArrayList<String> messages) {
-    Gson gson = new Gson();
-    String jsonMessages = gson.toJson(messages);
-    return jsonMessages;
-  }
-
 }
