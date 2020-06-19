@@ -46,6 +46,7 @@ import java.util.Map;
 
 import static com.google.sps.servlets.Constants.COMMENT_ENTITY_ID;
 import static com.google.sps.servlets.Constants.TEXT_PARAMETER_KEY;
+import static com.google.sps.servlets.Constants.IMG_URL_KEY;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
@@ -64,7 +65,7 @@ public class DataServlet extends HttpServlet {
     for (int i = 0; i < numberComments; i++) {
       if (resultsIterator.hasNext()) {
         Entity comment = resultsIterator.next();
-        CommentObject newComment = new CommentObject((String) comment.getProperty(TEXT_PARAMETER_KEY), (String) comment.getProperty("image_url"));
+        CommentObject newComment = new CommentObject((String) comment.getProperty(TEXT_PARAMETER_KEY), (String) comment.getProperty(IMG_URL_KEY));
         comments.add(newComment);
       }
     }
@@ -84,7 +85,7 @@ public class DataServlet extends HttpServlet {
     Entity commentEntity = new Entity(COMMENT_ENTITY_ID);
     commentEntity.setProperty(TEXT_PARAMETER_KEY, comment);
     commentEntity.setProperty("timestamp", timestamp);
-    commentEntity.setProperty("image_url", imageUrl);
+    commentEntity.setProperty(IMG_URL_KEY, imageUrl);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
